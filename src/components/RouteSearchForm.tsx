@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { format } from 'date-fns';
+import { id } from 'date-fns/locale';
 import { CalendarIcon, MapPin, ArrowRight } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -36,11 +37,11 @@ import { useToast } from '@/hooks/use-toast';
 import { cities } from '@/lib/placeholder-data';
 
 const FormSchema = z.object({
-  origin: z.string({ required_error: 'Please select an origin.' }),
-  destination: z.string({ required_error: 'Please select a destination.' }),
-  departureDate: z.date({ required_error: 'A date of departure is required.' }),
+  origin: z.string({ required_error: 'Silakan pilih kota asal.' }),
+  destination: z.string({ required_error: 'Silakan pilih kota tujuan.' }),
+  departureDate: z.date({ required_error: 'Tanggal keberangkatan harus diisi.' }),
 }).refine(data => data.origin !== data.destination, {
-  message: 'Origin and destination cannot be the same.',
+  message: 'Kota asal dan tujuan tidak boleh sama.',
   path: ['destination'],
 });
 
@@ -71,12 +72,12 @@ export function RouteSearchForm() {
               name="origin"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Origin</FormLabel>
+                  <FormLabel>Asal</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <MapPin className="mr-2 h-4 w-4 text-muted-foreground" />
-                        <SelectValue placeholder="Select origin city" />
+                        <SelectValue placeholder="Pilih kota asal" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -94,12 +95,12 @@ export function RouteSearchForm() {
               name="destination"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Destination</FormLabel>
+                  <FormLabel>Tujuan</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <MapPin className="mr-2 h-4 w-4 text-muted-foreground" />
-                        <SelectValue placeholder="Select destination city" />
+                        <SelectValue placeholder="Pilih kota tujuan" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -117,7 +118,7 @@ export function RouteSearchForm() {
               name="departureDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Departure Date</FormLabel>
+                  <FormLabel>Tanggal Berangkat</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <FormControl>
@@ -129,9 +130,9 @@ export function RouteSearchForm() {
                           )}
                         >
                           {field.value ? (
-                            format(field.value, 'PPP')
+                            format(field.value, 'PPP', { locale: id })
                           ) : (
-                            <span>Pick a date</span>
+                            <span>Pilih tanggal</span>
                           )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
@@ -139,6 +140,7 @@ export function RouteSearchForm() {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
+                        locale={id}
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
@@ -152,7 +154,7 @@ export function RouteSearchForm() {
               )}
             />
             <Button type="submit" className="md:col-span-1 h-10 bg-accent hover:bg-accent/90">
-              Search Buses
+              Cari Bus
               <ArrowRight className="ml-2 h-4 w-4"/>
             </Button>
           </form>

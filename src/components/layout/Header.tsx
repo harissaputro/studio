@@ -30,7 +30,7 @@ export function Header() {
         <nav className="flex-1 items-center space-x-6 text-sm font-medium">
           {isAuthenticated && (
             <Link href="/profile/orders" className="text-foreground/60 transition-colors hover:text-foreground/80">
-              Order History
+              Riwayat Pesanan
             </Link>
           )}
         </nav>
@@ -45,14 +45,14 @@ export function Header() {
                       <CircleUser />
                     </AvatarFallback>
                   </Avatar>
-                  <span className="sr-only">Toggle user menu</span>
+                  <span className="sr-only">Buka menu pengguna</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuLabel>Akun Saya</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link href="/profile/orders"><History className="mr-2 h-4 w-4" />Order History</Link>
+                  <Link href="/profile/orders"><History className="mr-2 h-4 w-4" />Riwayat Pesanan</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/admin"><LayoutDashboard className="mr-2 h-4 w-4" />Admin</Link>
@@ -60,17 +60,17 @@ export function Header() {
                 <DropdownMenuSeparator />
                 <DropdownMenuItem>
                   <LogOut className="mr-2 h-4 w-4" />
-                  Logout
+                  Keluar
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <div className="flex items-center gap-2">
               <Button variant="ghost" asChild>
-                <Link href="/login"><LogIn className="mr-2 h-4 w-4" />Login</Link>
+                <Link href="/login"><LogIn className="mr-2 h-4 w-4" />Masuk</Link>
               </Button>
               <Button asChild>
-                <Link href="/register"><UserPlus className="mr-2 h-4 w-4" />Register</Link>
+                <Link href="/register"><UserPlus className="mr-2 h-4 w-4" />Daftar</Link>
               </Button>
             </div>
           )}
